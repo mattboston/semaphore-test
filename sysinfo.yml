@@ -1,4 +1,4 @@
 ---
-- hosts: site
+- hosts: servers
   roles:
     - sysinfo
