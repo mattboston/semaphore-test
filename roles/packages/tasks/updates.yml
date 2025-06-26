@@ -2,24 +2,29 @@
 - name: Always run - confirm file is processed
   ansible.builtin.debug:
     msg: "Updates.yml file is being processed"
+  tags: ["packages:updates"]
 
 - name: Debug OS family
   ansible.builtin.debug:
     msg: "OS Family is {{ ansible_os_family }}"
+  tags: ["packages:updates"]
 
 - name: Debug condition check for RedHat
   ansible.builtin.debug:
     msg: "RedHat condition: {{ ansible_os_family == 'RedHat' }}"
+  tags: ["packages:updates"]
 
 - name: Debug condition check for Debian
   ansible.builtin.debug:
     msg: "Debian condition: {{ ansible_os_family == 'Debian' }}"
+  tags: ["packages:updates"]
 
 - name: Update package cache (RedHat)
   become: true
   ansible.builtin.dnf:
     update_cache: yes
   when: ansible_os_family == "RedHat"
+  tags: ["packages:updates"]
 
 - name: Upgrade all packages (RedHat)
   become: true
@@ -27,15 +32,18 @@
     name: "*"
     state: latest
   when: ansible_os_family == "RedHat"
+  tags: ["packages:updates"]
 
 - name: Update package cache (Debian)
   become: true
   ansible.builtin.apt:
     update_cache: yes
   when: ansible_os_family == "Debian"
+  tags: ["packages:updates"]
 
 - name: Upgrade all packages (Debian)
   become: true
   ansible.builtin.apt:
     upgrade: yes
   when: ansible_os_family == "Debian"
+  tags: ["packages:updates"]
