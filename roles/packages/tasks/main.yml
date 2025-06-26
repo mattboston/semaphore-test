@@ -1,0 +1,4 @@
+---
+- name: Update all packages
+  include_tasks: update.yml
+  tags: ["packages:update", "never"]
