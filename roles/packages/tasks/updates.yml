@@ -1,21 +1,25 @@
 ---
 - name: Update package cache (RedHat)
+  become: true
   ansible.builtin.dnf:
     update_cache: yes
   when: os_family == "RedHat"
 
 - name: Upgrade all packages (RedHat)
+  become: true
   ansible.builtin.dnf:
     name: "*"
     state: latest
   when: os_family == "RedHat"
 
 - name: Update package cache (Debian)
+  become: true
   ansible.builtin.apt:
     update_cache: yes
   when: os_family == "Debian"
 
 - name: Upgrade all packages (Debian)
+  become: true
   ansible.builtin.apt:
     upgrade: yes
   when: os_family == "Debian"
