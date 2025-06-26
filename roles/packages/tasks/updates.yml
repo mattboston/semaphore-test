@@ -1,4 +1,16 @@
 ---
+- name: Debug OS family
+  ansible.builtin.debug:
+    msg: "OS Family is {{ os_family }}"
+
+- name: Debug condition check for RedHat
+  ansible.builtin.debug:
+    msg: "RedHat condition: {{ os_family == 'RedHat' }}"
+
+- name: Debug condition check for Debian
+  ansible.builtin.debug:
+    msg: "Debian condition: {{ os_family == 'Debian' }}"
+
 - name: Update package cache (RedHat)
   become: true
   ansible.builtin.dnf:
