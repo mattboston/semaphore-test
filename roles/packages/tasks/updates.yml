@@ -1,4 +1,8 @@
 ---
+- name: Always run - confirm file is processed
+  ansible.builtin.debug:
+    msg: "Updates.yml file is being processed"
+
 - name: Debug OS family
   ansible.builtin.debug:
     msg: "OS Family is {{ ansible_os_family }}"
