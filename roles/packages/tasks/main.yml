@@ -1,4 +1,4 @@
 ---
 - name: Update all packages
-  include_tasks: updates.yml
-  tags: ["packages:updates", "never"]
+  ansible.builtin.include_tasks: updates.yml
+  tags: ["packages:updates"]
