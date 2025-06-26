@@ -1,4 +1,5 @@
 ---
-- hosts: servers
+- name: Run sysinfo role
+  hosts: all
   roles:
-    - sysinfo
+    - role: sysinfo

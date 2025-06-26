@@ -1,4 +1,5 @@
 ---
-- hosts: servers
+- name: Run packages role
+  hosts: all
   roles:
-    - packages
+    - role: packages
