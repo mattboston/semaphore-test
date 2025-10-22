@@ -5,7 +5,7 @@
 - name: Read AppRole credentials from JSON file
   ansible.builtin.slurp:
     src: "/etc/semaphore/vault-approle-{{ vault_namespace_short }}.json"
-  delegate_to: localhost
+  # delegate_to: localhost
   register: vault_approle_file
 
 - name: Parse AppRole JSON
