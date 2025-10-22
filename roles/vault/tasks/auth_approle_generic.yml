@@ -20,6 +20,10 @@
   ansible.builtin.debug:
     msg: "{{ vault_approle_creds }}"
 
+- name: Print AppRole credentials role_id
+  ansible.builtin.debug:
+    msg: "{{ vault_approle_creds.role_id }}"
+
 - name: Authenticate with AppRole
   community.hashi_vault.vault_login:
     url: "{{ vault_approle_creds.vault_addr }}"
