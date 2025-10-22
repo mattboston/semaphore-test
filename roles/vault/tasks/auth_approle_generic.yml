@@ -8,6 +8,10 @@
   delegate_to: localhost
   register: vault_approle_file
 
+- name: Print AppRole credentials
+  ansible.builtin.debug:
+    msg: "{{ vault_approle_file.content }}"
+
 - name: Parse AppRole JSON
   ansible.builtin.set_fact:
     vault_approle_creds: "{{ vault_approle_file.content | b64decode | from_json }}"
@@ -23,6 +27,10 @@
     validate_certs: false
   delegate_to: localhost
   register: vault_login_result
+
+- name: Print AppRole credentials
+  ansible.builtin.debug:
+    msg: "{{ vault_login_result.login.auth.client_token }}"
 
 - name: Set token from AppRole
   ansible.builtin.set_fact:
