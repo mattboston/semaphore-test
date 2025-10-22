@@ -6,7 +6,6 @@
   ansible.builtin.include_role:
     name: vault
   vars:
-    vault_url: "{{ vault_url }}"
     vault_namespace: "eng/blockchain"
     vault_secret_path: "test"
     vault_engine_mount_point: "kv"
@@ -20,7 +19,6 @@
   ansible.builtin.include_role:
     name: vault
   vars:
-    vault_url: "{{ vault_url }}"
     vault_namespace: "fin/treasury"
     vault_secret_path: "test"
     vault_engine_mount_point: "kv"
