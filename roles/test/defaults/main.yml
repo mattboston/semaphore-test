@@ -1,0 +1,14 @@
+---
+# Test role defaults - specific configuration for eng/blockchain and fin/treasury
+
+vault_url: "https://vault.local.flipside.services"
+
+# eng/blockchain namespace configuration
+vault_eng_path: "test"
+vault_eng_engine_mount_point: "kv"
+vault_eng_namespace: "eng/blockchain"
+
+# fin/treasury namespace configuration
+vault_fin_path: "test"
+vault_fin_engine_mount_point: "kv"
+vault_fin_namespace: "fin/treasury"

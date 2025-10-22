@@ -1,0 +1,17 @@
+---
+# Generic OIDC Token File Authentication
+# Reads token from .vault-token-{namespace_short} file
+
+- name: Read token from file
+  ansible.builtin.slurp:
+    src: "{{ playbook_dir }}/.vault-token-{{ vault_namespace_short }}"
+  delegate_to: localhost
+  register: vault_token_file
+
+- name: Set token fact
+  ansible.builtin.set_fact:
+    vault_token: "{{ vault_token_file.content | b64decode | trim }}"
+
+- name: Display authentication info
+  ansible.builtin.debug:
+    msg: "🔑 Authenticated to {{ vault_namespace }} namespace using OIDC token file"

@@ -1,0 +1,5 @@
+---
+- name: Vault authentication and secret retrieval
+  hosts: all
+  roles:
+    - role: test   # Fetch secrets from eng/blockchain and fin/treasury (uses vault role internally)

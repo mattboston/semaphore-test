@@ -1,3 +1,11 @@
 /.terraform.lock.hcl
 /.terraform/
 /out.txt
+# Vault token files
+.vault-token-*
+
+# Vault AppRole credential files
+vault-approle-*.json
+
+ansible_collections/
+.venv/

@@ -1,0 +1,33 @@
+---
+# Generic AppRole Authentication
+# Reads AppRole credentials from vault-approle-{namespace_short}.json file
+
+- name: Read AppRole credentials from JSON file
+  ansible.builtin.slurp:
+    src: "/etc/semaphore/vault-approle-{{ vault_namespace_short }}.json"
+  delegate_to: localhost
+  register: vault_approle_file
+
+- name: Parse AppRole JSON
+  ansible.builtin.set_fact:
+    vault_approle_creds: "{{ vault_approle_file.content | b64decode | from_json }}"
+
+- name: Authenticate with AppRole
+  community.hashi_vault.vault_login:
+    url: "{{ vault_approle_creds.vault_addr }}"
+    auth_method: approle
+    role_id: "{{ vault_approle_creds.role_id }}"
+    secret_id: "{{ vault_approle_creds.secret_id }}"
+    mount_point: "{{ vault_approle_creds.auth_mount_path }}"
+    namespace: "{{ vault_approle_creds.vault_namespace }}"
+    validate_certs: false
+  delegate_to: localhost
+  register: vault_login_result
+
+- name: Set token from AppRole
+  ansible.builtin.set_fact:
+    vault_token: "{{ vault_login_result.login.auth.client_token }}"
+
+- name: Display authentication info
+  ansible.builtin.debug:
+    msg: "🔑 Authenticated to {{ vault_namespace }} namespace using AppRole"

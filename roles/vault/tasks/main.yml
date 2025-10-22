@@ -1,0 +1,58 @@
+---
+# Generic Vault Role
+# Authenticates and fetches secrets from Vault
+#
+# Parameters:
+#   vault_namespace: Vault namespace (e.g., "eng", "fin", "eng/blockchain")
+#   vault_secret_path: Path to secret (e.g., "test")
+#   vault_engine_mount_point: KV engine mount point (default: "kv")
+#   vault_secret_name: Name for the returned secret variable (default: "vault_secret")
+#
+# Authentication methods (based on SEMAPHORE variable):
+#   - SEMAPHORE=true:  Uses AppRole authentication (requires vault-approle-{namespace}.json)
+#   - SEMAPHORE=false: Uses OIDC token files (requires .vault-token-{namespace})
+
+- name: Validate required parameters
+  ansible.builtin.assert:
+    that:
+      - vault_namespace is defined
+      - vault_secret_path is defined
+    fail_msg: "vault_namespace and vault_secret_path are required parameters"
+    success_msg: "All required parameters provided"
+
+- name: Set vault_engine_mount_point default
+  ansible.builtin.set_fact:
+    vault_engine_mount_point: "{{ vault_engine_mount_point | default('kv') }}"
+
+- name: Set vault_secret_name default
+  ansible.builtin.set_fact:
+    vault_secret_name: "{{ vault_secret_name | default('vault_secret') }}"
+
+- name: Determine namespace short name for token lookup
+  ansible.builtin.set_fact:
+    vault_namespace_short: "{{ vault_namespace.split('/')[0] }}"
+
+- name: Authenticate with AppRole
+  ansible.builtin.include_tasks: auth_approle_generic.yml
+  when: SEMAPHORE | default(false) | bool
+
+- name: Authenticate with OIDC token file
+  ansible.builtin.include_tasks: auth_token_generic.yml
+  when: not (SEMAPHORE | default(false) | bool)
+
+- name: Fetch secret from Vault
+  community.hashi_vault.vault_kv2_get:
+    url: "{{ vault_url }}"
+    auth_method: "token"
+    token: "{{ vault_token }}"
+    engine_mount_point: "{{ vault_engine_mount_point }}"
+    path: "{{ vault_secret_path }}"
+    validate_certs: false
+  environment:
+    VAULT_NAMESPACE: "{{ vault_namespace }}"
+  delegate_to: localhost
+  register: vault_secret_result
+
+- name: Set secret as a fact with custom name
+  ansible.builtin.set_fact:
+    "{{ vault_secret_name }}": "{{ vault_secret_result }}"

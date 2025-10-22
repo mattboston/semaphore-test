@@ -1,0 +1,3 @@
+---
+# Generic Vault authentication settings
+vault_url: "https://vault.local.flipside.services"

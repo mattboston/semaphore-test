@@ -1,0 +1,29 @@
+---
+# Test role - Fetches test secrets from eng/blockchain and fin/treasury
+# Uses the generic vault role with parameters
+
+- name: Fetch secret from eng/blockchain namespace
+  ansible.builtin.include_role:
+    name: vault
+  vars:
+    vault_namespace: "eng/blockchain"
+    vault_secret_path: "test"
+    vault_engine_mount_point: "kv"
+    vault_secret_name: "vault_eng_secret"
+
+- name: Print eng/blockchain secret
+  ansible.builtin.debug:
+    msg: "eng/blockchain secret - username: {{ vault_eng_secret.data.data.username }}"
+
+- name: Fetch secret from fin/treasury namespace
+  ansible.builtin.include_role:
+    name: vault
+  vars:
+    vault_namespace: "fin/treasury"
+    vault_secret_path: "test"
+    vault_engine_mount_point: "kv"
+    vault_secret_name: "vault_fin_secret"
+
+- name: Print fin/treasury secret
+  ansible.builtin.debug:
+    msg: "fin/treasury secret - username: {{ vault_fin_secret.data.data.username }}"
