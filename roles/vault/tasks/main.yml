@@ -12,6 +12,13 @@
 #   - SEMAPHORE=true:  Uses AppRole authentication (requires vault-approle-{namespace}.json)
 #   - SEMAPHORE=false: Uses OIDC token files (requires .vault-token-{namespace})
 
+- name: Debug SEMAPHORE variable
+  ansible.builtin.debug:
+    msg:
+      - "SEMAPHORE value: {{ SEMAPHORE }}"
+      - "SEMAPHORE type: {{ SEMAPHORE | type_debug }}"
+      - "SEMAPHORE as bool: {{ (SEMAPHORE | default(false) | bool) }}"
+
 - name: Validate required parameters
   ansible.builtin.assert:
     that:
