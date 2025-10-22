@@ -1,7 +1,7 @@
 ---
 # Test role defaults - specific configuration for eng/blockchain and fin/treasury
 
-vault_url: "https://vault.local.flipside.services"
+vault_url: "{{ 'http://openbao-internal:8200' if SEMAPHORE else 'https://vault.local.flipside.services' }}"
 
 # eng/blockchain namespace configuration
 vault_eng_path: "test"
