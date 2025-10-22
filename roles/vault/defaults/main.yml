@@ -1,4 +1,3 @@
 ---
 # Generic Vault authentication settings
-# vault_url: "https://vault.local.flipside.services"
-vault_url: "https://vault.local.flipside.services"
+# vault_url is set dynamically in tasks/main.yml based on SEMAPHORE variable
