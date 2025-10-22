@@ -16,6 +16,10 @@
   ansible.builtin.set_fact:
     vault_approle_creds: "{{ vault_approle_file.content | b64decode | from_json }}"
 
+- name: Print AppRole credentials parsed
+  ansible.builtin.debug:
+    msg: "{{ vault_approle_creds }}"
+
 - name: Authenticate with AppRole
   community.hashi_vault.vault_login:
     url: "{{ vault_approle_creds.vault_addr }}"
