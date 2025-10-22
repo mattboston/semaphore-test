@@ -26,7 +26,7 @@
 
 - name: Authenticate with AppRole
   community.hashi_vault.vault_login:
-    url: "{{ vault_approle_creds.vault_addr }}"
+    url: "{{ vault_url }}"
     auth_method: approle
     role_id: "{{ vault_approle_creds.role_id }}"
     secret_id: "{{ vault_approle_creds.secret_id }}"
