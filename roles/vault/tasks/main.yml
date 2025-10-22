@@ -28,6 +28,10 @@
   ansible.builtin.set_fact:
     vault_secret_name: "{{ vault_secret_name | default('vault_secret') }}"
 
+- name: Set vault URL based on SEMAPHORE environment
+  ansible.builtin.set_fact:
+    vault_url: "{{ 'http://openbao-internal.vault:8200' if (SEMAPHORE | default(false) | bool) else 'https://vault.local.flipside.services' }}"
+
 - name: Determine namespace short name for token lookup
   ansible.builtin.set_fact:
     vault_namespace_short: "{{ vault_namespace.split('/')[0] }}"
