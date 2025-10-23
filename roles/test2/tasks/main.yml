@@ -1,7 +1,12 @@
 ---
-- name: Print test2_eng_login
+
+- name: Print test2_eng_approle_creds
   ansible.builtin.debug:
-    msg: "test2_eng_login: {{ test2_eng_login }}"
+    msg: "test2_eng_approle_creds: {{ test2_eng_approle_creds }}"
+
+# - name: Print test2_eng_login
+#   ansible.builtin.debug:
+#     msg: "test2_eng_login: {{ test2_eng_login }}"
 
 # - name: Print eng/blockchain username
 #   ansible.builtin.debug:
