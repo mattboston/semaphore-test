@@ -17,6 +17,10 @@
 # Run with:
 #   ansible-playbook -i inventories/test.ini test-vault-approle.yml -l testbed-ca -u flipside -e "SEMAPHORE=true"
 
+- name: Print test2_eng_login
+  ansible.builtin.debug:
+    msg: "test2_eng_login: {{ test2_eng_login }}"
+
 - name: Vault authentication and secret retrieval (AppRole)
   hosts: all
   vars:

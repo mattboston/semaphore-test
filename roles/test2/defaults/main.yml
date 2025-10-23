@@ -24,16 +24,16 @@ test2_eng_login: >-
     )
   }}
 
-test2_eng_secret: >-
-  {{ lookup(
-      "community.hashi_vault.test2_kv2_get",
-      test2_eng_path,
-      mount_point=test2_eng_mount_point,
-      namespace=test2_eng_namespace,
-      auth_method="token",
-      token=test2_eng_login.login.auth.client_token,
-    )
-  }}
+# test2_eng_secret: >-
+#   {{ lookup(
+#       "community.hashi_vault.test2_kv2_get",
+#       test2_eng_path,
+#       mount_point=test2_eng_mount_point,
+#       namespace=test2_eng_namespace,
+#       auth_method="token",
+#       token=test2_eng_login.login.auth.client_token,
+#     )
+#   }}
 
-test2_eng_username: >-
-  {{ test2_eng_secret.data.data.username }}
+# test2_eng_username: >-
+#   {{ test2_eng_secret.data.data.username }}
