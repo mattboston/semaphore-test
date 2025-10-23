@@ -31,6 +31,7 @@ test2_eng_secret: >-
   {{ lookup(
       "community.hashi_vault.test2_kv2_get",
       test2_eng_path,
+      url=test2_url,
       mount_point=test2_eng_mount_point,
       namespace=test2_eng_namespace,
       auth_method="token",
