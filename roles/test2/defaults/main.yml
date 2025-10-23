@@ -1,15 +1,17 @@
 ---
 test2_url: "http://openbao-internal.vault:8200"
+
+# eng/blockchain namespace configuration
 test2_eng_path: "test"
 test2_eng_engine_mount_point: "kv"
 test2_eng_root_namespace: "eng"
 test2_eng_namespace: "eng/blockchain"
 
 # fin/treasury namespace configuration
-# test2_fin_path: "test"
-# test2_fin_engine_mount_point: "kv"
-# test2_fin_root_namespace: "fin"
-# test2_fin_namespace: "fin/treasury"
+test2_fin_path: "test"
+test2_fin_engine_mount_point: "kv"
+test2_fin_root_namespace: "fin"
+test2_fin_namespace: "fin/treasury"
 
 test2_eng_login: >-
   {{ lookup(
@@ -39,16 +41,36 @@ test2_eng_secret: >-
     )
   }}
 
-# solana_vault_secret: >-
-#   {{ lookup(
-#       "community.hashi_vault.vault_kv2_get",
-#       solana_vault_path,
-#       mount_point=solana_vault_mount_point,
-#       engine_mount_point=solana_vault_mount_point,
-#       namespace=solana_vault_namespace,
-#       auth_method="token"
-#     ) if solana_vault_enabled else none
-#   }}
-
 test2_eng_username: >-
   {{ test2_eng_secret.data.data.username }}
+
+test2_fin_login: >-
+  {{ lookup(
+      "community.hashi_vault.vault_login",
+      url=test2_url,
+      auth_method="approle",
+      role_id=test2_fin_approle_creds.role_id,
+      secret_id=test2_fin_approle_creds.secret_id,
+      mount_point=test2_fin_approle_creds.auth_mount_path,
+      namespace=test2_fin_root_namespace,
+      validate_certs=false
+    )
+  }}
+
+test2_fin_login_token: >-
+  {{ test2_fin_login.auth.client_token }}
+
+test2_fin_secret: >-
+  {{ lookup(
+      "community.hashi_vault.vault_kv2_get",
+      test2_fin_path,
+      url=test2_url,
+      engine_mount_point=test2_fin_engine_mount_point,
+      namespace=test2_fin_namespace,
+      auth_method="token",
+      token=test2_fin_login_token,
+    )
+  }}
+
+test2_fin_username: >-
+  {{ test2_fin_secret.data.data.username }}

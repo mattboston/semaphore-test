@@ -15,3 +15,19 @@
 - name: Print eng/blockchain username
   ansible.builtin.debug:
     msg: "eng/blockchain username: {{ test2_eng_username }}"
+
+- name: Print test2_fin_approle_creds
+  ansible.builtin.debug:
+    msg: "test2_fin_approle_creds: {{ test2_fin_approle_creds }}"
+
+- name: Print test2_fin_login
+  ansible.builtin.debug:
+    msg: "test2_fin_login: {{ test2_fin_login }}"
+
+- name: Print test2_fin_login_token
+  ansible.builtin.debug:
+    msg: "test2_fin_login_token: {{ test2_fin_login_token }}"
+
+- name: Print fin/treasury username
+  ansible.builtin.debug:
+    msg: "fin/treasury username: {{ test2_fin_username }}"
