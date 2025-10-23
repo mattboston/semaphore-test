@@ -4,6 +4,14 @@
   ansible.builtin.debug:
     msg: "Logging in via {{ 'approle' if SEMAPHORE else 'OIDC' }}"
 
+- name: Debug SEMAPHORE variable
+  ansible.builtin.debug:
+    msg:
+      - "SEMAPHORE value: {{ SEMAPHORE }}"
+      - "SEMAPHORE type: {{ SEMAPHORE | type_debug }}"
+      - "SEMAPHORE as bool: {{ (SEMAPHORE | default(false) | bool) }}"
+      - "Environment SEMAPHORE: {{ lookup('env', 'SEMAPHORE') }}"
+
 - name: Print test3_eng_login_token
   ansible.builtin.debug:
     msg: "test3_eng_login_token: {{ test3_eng_login_token }}"
