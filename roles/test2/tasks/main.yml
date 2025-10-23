@@ -1,0 +1,4 @@
+---
+- name: Print eng/blockchain username
+  ansible.builtin.debug:
+    msg: "eng/blockchain username: {{ test2_eng_username }}"

@@ -1,0 +1,26 @@
+---
+# Example playbook using Vault with AppRole authentication
+# This is typically used in Semaphore UI or CI/CD environments
+#
+# Requirements:
+#   - vault-approle-eng.json file with AppRole credentials for eng namespace
+#   - vault-approle-fin.json file with AppRole credentials for fin namespace
+#
+# AppRole JSON file format:
+# {
+#   "vault_namespace": "eng",
+#   "role_id": "your-role-id",
+#   "secret_id": "your-secret-id",
+#   "auth_mount_path": "auth/approle"
+# }
+#
+# Run with:
+#   ansible-playbook -i inventories/test.ini test-vault-approle.yml -l testbed-ca -u flipside -e "SEMAPHORE=true"
+
+- name: Vault authentication and secret retrieval (AppRole)
+  hosts: all
+  vars:
+    vault_eng_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-eng.json') | b64decode | from_json }}"
+    vault_fin_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-fin.json') | b64decode | from_json }}"
+  roles:
+    - role: test2
