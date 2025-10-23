@@ -8,6 +8,6 @@
   ansible.builtin.debug:
     msg: "test2_eng_login: {{ test2_eng_login }}"
 
-# - name: Print eng/blockchain username
-#   ansible.builtin.debug:
-#     msg: "eng/blockchain username: {{ test2_eng_username }}"
+- name: Print eng/blockchain username
+  ansible.builtin.debug:
+    msg: "eng/blockchain username: {{ test2_eng_username }}"
