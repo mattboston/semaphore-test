@@ -25,7 +25,7 @@ test2_eng_login: >-
   }}
 
 test2_eng_login_token: >-
-  {{ test2_eng_login.login.auth.client_token }}
+  {{ test2_eng_login.auth.client_token }}
 
 # test2_eng_secret: >-
 #   {{ lookup(
