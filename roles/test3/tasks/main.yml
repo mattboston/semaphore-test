@@ -1,0 +1,21 @@
+---
+
+- name: Print test3_SEMAPHORE
+  ansible.builtin.debug:
+    msg: "Logging in via {{ 'approle' if SEMAPHORE else 'OIDC' }}"
+
+- name: Print test3_eng_login_token
+  ansible.builtin.debug:
+    msg: "test3_eng_login_token: {{ test3_eng_login_token }}"
+
+- name: Print eng/blockchain username
+  ansible.builtin.debug:
+    msg: "eng/blockchain username: {{ test3_eng_username }}"
+
+- name: Print test3_fin_login_token
+  ansible.builtin.debug:
+    msg: "test3_fin_login_token: {{ test3_fin_login_token }}"
+
+- name: Print fin/treasury username
+  ansible.builtin.debug:
+    msg: "fin/treasury username: {{ test3_fin_username }}"

@@ -1,0 +1,76 @@
+---
+test3_url: "{{ 'http://openbao-internal.vault:8200' if SEMAPHORE else 'https://vault.local.flipside.services' }}"
+
+# eng/blockchain namespace configuration
+test3_eng_path: "test"
+test3_eng_engine_mount_point: "kv"
+test3_eng_root_namespace: "eng"
+test3_eng_namespace: "eng/blockchain"
+
+# fin/treasury namespace configuration
+test3_fin_path: "test"
+test3_fin_engine_mount_point: "kv"
+test3_fin_root_namespace: "fin"
+test3_fin_namespace: "fin/treasury"
+
+test3_eng_login: >-
+  {{ lookup(
+      "community.hashi_vault.vault_login",
+      url=test3_url,
+      auth_method="approle",
+      role_id=test3_eng_approle_creds.role_id,
+      secret_id=test3_eng_approle_creds.secret_id,
+      mount_point=test3_eng_approle_creds.auth_mount_path,
+      namespace=test3_eng_root_namespace,
+      validate_certs=false
+    ) if SEMAPHORE else none
+  }}
+
+test3_eng_login_token: >-
+  {{ test3_eng_login.auth.client_token if SEMAPHORE else lookup('file', playbook_dir + '/.vault-token-eng') }}
+
+test3_eng_secret: >-
+  {{ lookup(
+      "community.hashi_vault.vault_kv2_get",
+      test3_eng_path,
+      url=test3_url,
+      engine_mount_point=test3_eng_engine_mount_point,
+      namespace=test3_eng_namespace,
+      auth_method="token",
+      token=test3_eng_login_token,
+    )
+  }}
+
+test3_eng_username: >-
+  {{ test3_eng_secret.data.data.username }}
+
+test3_fin_login: >-
+  {{ lookup(
+      "community.hashi_vault.vault_login",
+      url=test3_url,
+      auth_method="approle",
+      role_id=test3_fin_approle_creds.role_id,
+      secret_id=test3_fin_approle_creds.secret_id,
+      mount_point=test3_fin_approle_creds.auth_mount_path,
+      namespace=test3_fin_root_namespace,
+      validate_certs=false
+    ) if SEMAPHORE else none
+  }}
+
+test3_fin_login_token: >-
+  {{ test3_fin_login.auth.client_token if SEMAPHORE else lookup('file', playbook_dir + '/.vault-token-fin') }}
+
+test3_fin_secret: >-
+  {{ lookup(
+      "community.hashi_vault.vault_kv2_get",
+      test3_fin_path,
+      url=test3_url,
+      engine_mount_point=test3_fin_engine_mount_point,
+      namespace=test3_fin_namespace,
+      auth_method="token",
+      token=test3_fin_login_token,
+    )
+  }}
+
+test3_fin_username: >-
+  {{ test3_fin_secret.data.data.username }}
