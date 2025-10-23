@@ -1,2 +1,2 @@
 ---
-SEMAPHORE: false
+SEMAPHORE: "{{ lookup('env', 'SEMAPHORE') | default(false) | bool }}"
