@@ -2,13 +2,13 @@
 
 - name: Print test3_SEMAPHORE
   ansible.builtin.debug:
-    msg: "Logging in via {{ 'approle' if SEMAPHORE else 'OIDC' }}"
+    msg: "Logging in via {{ 'approle' if (SEMAPHORE | default(false) | bool) else 'OIDC' }}"
 
 - name: Debug SEMAPHORE variable
   ansible.builtin.debug:
     msg:
-      - "SEMAPHORE value: {{ SEMAPHORE }}"
-      - "SEMAPHORE type: {{ SEMAPHORE | type_debug }}"
+      - "SEMAPHORE value: {{ SEMAPHORE | default('undefined') }}"
+      - "SEMAPHORE type: {{ (SEMAPHORE | default(false)) | type_debug }}"
       - "SEMAPHORE as bool: {{ (SEMAPHORE | default(false) | bool) }}"
       - "Environment SEMAPHORE: {{ lookup('env', 'SEMAPHORE') }}"
 
