@@ -8,7 +8,6 @@
 #
 # AppRole JSON file format:
 # {
-#   "vault_addr": "https://vault.local.flipside.services",
 #   "vault_namespace": "eng",
 #   "role_id": "your-role-id",
 #   "secret_id": "your-secret-id",

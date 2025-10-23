@@ -20,7 +20,7 @@
 - name: Vault authentication and secret retrieval (AppRole)
   hosts: all
   vars:
-    vault_eng_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-eng.json') | b64decode | from_json }}"
-    vault_fin_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-fin.json') | b64decode | from_json }}"
+    test2_eng_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-eng.json') | b64decode | from_json }}"
+    test2_fin_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-fin.json') | b64decode | from_json }}"
   roles:
     - role: test2
