@@ -1,4 +1,8 @@
 ---
-- name: Print eng/blockchain username
+- name: Print test2_eng_login
   ansible.builtin.debug:
-    msg: "eng/blockchain username: {{ test2_eng_username }}"
+    msg: "test2_eng_login: {{ test2_eng_login }}"
+
+# - name: Print eng/blockchain username
+#   ansible.builtin.debug:
+#     msg: "eng/blockchain username: {{ test2_eng_username }}"
