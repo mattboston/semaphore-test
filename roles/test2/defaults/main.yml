@@ -13,7 +13,7 @@ test2_eng_namespace: "eng/blockchain"
 
 test2_eng_login: >-
   {{ lookup(
-      "community.hashi_vault.test2_login",
+      "community.hashi_vault.vault_login",
       test2_url,
       auth_method="approle",
       role_id=test2_eng_approle_creds.role_id,
