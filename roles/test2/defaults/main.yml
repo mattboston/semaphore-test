@@ -1,7 +1,7 @@
 ---
 test2_url: "http://openbao-internal.vault:8200"
 test2_eng_path: "test"
-test2_eng_mount_point: "kv"
+test2_eng_engine_mount_point: "kv"
 test2_eng_root_namespace: "eng"
 test2_eng_namespace: "eng/blockchain"
 
@@ -32,12 +32,23 @@ test2_eng_secret: >-
       "community.hashi_vault.vault_kv2_get",
       test2_eng_path,
       url=test2_url,
-      mount_point=test2_eng_mount_point,
+      engine_mount_point=test2_eng_engine_mount_point,
       namespace=test2_eng_namespace,
       auth_method="token",
       token=test2_eng_login_token,
     )
   }}
+
+# solana_vault_secret: >-
+#   {{ lookup(
+#       "community.hashi_vault.vault_kv2_get",
+#       solana_vault_path,
+#       mount_point=solana_vault_mount_point,
+#       engine_mount_point=solana_vault_mount_point,
+#       namespace=solana_vault_namespace,
+#       auth_method="token"
+#     ) if solana_vault_enabled else none
+#   }}
 
 test2_eng_username: >-
   {{ test2_eng_secret.data.data.username }}
