@@ -1,9 +1,11 @@
 ---
-- name: Print ansible location of group_vars and host_vars
+- name: Print ansible search paths for group_vars and host_vars
   ansible.builtin.debug:
     msg:
-      - "group_vars: {{ group_vars }}"
-      - "host_vars: {{ host_vars }}"
+      - "inventory_dir: {{ inventory_dir }}"
+      - "playbook_dir: {{ playbook_dir }}"
+      - "ansible_search_path: {{ ansible_search_path }}"
+      - "Current working directory: {{ ansible_env.PWD | default('not set') }}"
 
 - name: Print test3_SEMAPHORE
   ansible.builtin.debug:
