@@ -1,4 +1,3 @@
 ---
 # Use environment variables (set in Semaphore UI)
-SEMAPHORE: "{{ lookup('env', 'semaphore') | default(false) | bool }}"
-TEST_VAR: "{{ lookup('env', 'TEST_VAR') | default('default_value') }}"
+semaphore: false
