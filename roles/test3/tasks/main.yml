@@ -11,17 +11,17 @@
       - "ansible_search_path: {{ ansible_search_path }}"
       - "Current working directory: {{ ansible_env.PWD | default('not set') }}"
 
-- name: Print test3_SEMAPHORE
+- name: Print test3_semaphore
   ansible.builtin.debug:
-    msg: "Logging in via {{ 'approle' if (SEMAPHORE | default(false) | bool) else 'OIDC' }}"
+    msg: "Logging in via {{ 'approle' if (semaphore | default(false) | bool) else 'OIDC' }}"
 
-- name: Debug SEMAPHORE variable
+- name: Debug semaphore variable
   ansible.builtin.debug:
     msg:
-      - "SEMAPHORE value: {{ SEMAPHORE | default('undefined') }}"
-      - "SEMAPHORE type: {{ (SEMAPHORE | default(false)) | type_debug }}"
-      - "SEMAPHORE as bool: {{ (SEMAPHORE | default(false) | bool) }}"
-      - "Environment SEMAPHORE: {{ lookup('env', 'SEMAPHORE') }}"
+      - "semaphore value: {{ semaphore | default('undefined') }}"
+      - "semaphore type: {{ (semaphore | default(false)) | type_debug }}"
+      - "semaphore as bool: {{ (semaphore | default(false) | bool) }}"
+      - "Environment semaphore: {{ lookup('env', 'semaphore') }}"
 
 - name: Print test3_eng_login_token
   ansible.builtin.debug:

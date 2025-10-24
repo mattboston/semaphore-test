@@ -1,0 +1,36 @@
+---
+vault_url: "https://vault.local.flipside.services"
+
+vault_eng_path: "test"
+vault_eng_mount_point: "kv"
+vault_eng_engine_mount_point: "kv"
+vault_eng_namespace: "eng/blockchain"
+
+
+vault_eng_secret: >-
+  {{ lookup(
+      "community.hashi_vault.vault_kv2_get",
+      "test",
+      mount_point="kv",
+      engine_mount_point="kv",
+      namespace="eng/blockchain",
+      auth_method="approle" if semaphore else "token"
+    )
+  }}
+
+vault_eng_identity: >-
+  {{ vault_eng_secret.data.data['username'] }}
+
+vault_fin_secret: >-
+  {{ lookup(
+      "community.hashi_vault.vault_kv2_get",
+      "test",
+      mount_point="kv",
+      engine_mount_point="kv",
+      namespace="fin/treasury",
+      auth_method="approle" if semaphore else "token"
+    )
+  }}
+
+vault_fin_identity: >-
+  {{ vault_fin_secret.data.data['username'] }}

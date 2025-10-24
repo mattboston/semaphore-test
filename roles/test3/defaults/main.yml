@@ -1,5 +1,5 @@
 ---
-test3_url: "{{ 'http://openbao-internal.vault:8200' if SEMAPHORE else 'https://vault.local.flipside.services' }}"
+test3_url: "{{ 'http://openbao-internal.vault:8200' if semaphore else 'https://vault.local.flipside.services' }}"
 
 # eng/blockchain namespace configuration
 test3_eng_path: "test"
@@ -23,11 +23,11 @@ test3_eng_login: >-
       mount_point=test3_eng_approle_creds.auth_mount_path,
       namespace=test3_eng_root_namespace,
       validate_certs=false
-    ) if SEMAPHORE else none
+    ) if semaphore else none
   }}
 
 test3_eng_login_token: >-
-  {{ test3_eng_login.auth.client_token if SEMAPHORE else lookup('file', playbook_dir + '/.vault-token-eng') }}
+  {{ test3_eng_login.auth.client_token if semaphore else lookup('file', playbook_dir + '/.vault-token-eng') }}
 
 test3_eng_secret: >-
   {{ lookup(
@@ -54,11 +54,11 @@ test3_fin_login: >-
       mount_point=test3_fin_approle_creds.auth_mount_path,
       namespace=test3_fin_root_namespace,
       validate_certs=false
-    ) if SEMAPHORE else none
+    ) if semaphore else none
   }}
 
 test3_fin_login_token: >-
-  {{ test3_fin_login.auth.client_token if SEMAPHORE else lookup('file', playbook_dir + '/.vault-token-fin') }}
+  {{ test3_fin_login.auth.client_token if semaphore else lookup('file', playbook_dir + '/.vault-token-fin') }}
 
 test3_fin_secret: >-
   {{ lookup(

@@ -15,11 +15,9 @@
 # }
 #
 # Run with:
-#   ansible-playbook -i inventories/test.ini test-vault-approle.yml -l testbed-ca -u flipside -e "semaphore=true"
+#   ansible-playbook -i inventories/test.ini test3-vault-approle.yml -l testbed-ca -u flipside -e "semaphore=true"
 
 - name: Vault authentication and secret retrieval (AppRole)
   hosts: all
-  vars:
-    semaphore: true  # Enable AppRole authentication
   roles:
-    - role: test   # Fetch secrets from eng/blockchain and fin/treasury (uses vault role internally)
+    - role: test3   # Fetch secrets from eng/blockchain and fin/treasury (uses vault role internally)

@@ -8,16 +8,16 @@
 #   vault_engine_mount_point: KV engine mount point (default: "kv")
 #   vault_secret_name: Name for the returned secret variable (default: "vault_secret")
 #
-# Authentication methods (based on SEMAPHORE variable):
-#   - SEMAPHORE=true:  Uses AppRole authentication (requires vault-approle-{namespace}.json)
-#   - SEMAPHORE=false: Uses OIDC token files (requires .vault-token-{namespace})
+# Authentication methods (based on semaphore variable):
+#   - semaphore=true:  Uses AppRole authentication (requires vault-approle-{namespace}.json)
+#   - semaphore=false: Uses OIDC token files (requires .vault-token-{namespace})
 
-- name: Debug SEMAPHORE variable
+- name: Debug semaphore variable
   ansible.builtin.debug:
     msg:
-      - "SEMAPHORE value: {{ SEMAPHORE }}"
-      - "SEMAPHORE type: {{ SEMAPHORE | type_debug }}"
-      - "SEMAPHORE as bool: {{ (SEMAPHORE | default(false) | bool) }}"
+      - "semaphore value: {{ semaphore }}"
+      - "semaphore type: {{ semaphore | type_debug }}"
+      - "semaphore as bool: {{ (semaphore | default(false) | bool) }}"
 
 - name: Validate required parameters
   ansible.builtin.assert:
@@ -35,9 +35,9 @@
   ansible.builtin.set_fact:
     vault_secret_name: "{{ vault_secret_name | default('vault_secret') }}"
 
-- name: Set vault URL based on SEMAPHORE environment
+- name: Set vault URL based on semaphore environment
   ansible.builtin.set_fact:
-    vault_url: "{{ 'http://openbao-internal.vault:8200' if (SEMAPHORE | default(false) | bool) else 'https://vault.local.flipside.services' }}"
+    vault_url: "{{ 'http://openbao-internal.vault:8200' if (semaphore | default(false) | bool) else 'https://vault.local.flipside.services' }}"
 
 - name: Determine namespace short name for token lookup
   ansible.builtin.set_fact:
@@ -45,11 +45,11 @@
 
 - name: Authenticate with AppRole
   ansible.builtin.include_tasks: auth_approle_generic.yml
-  when: SEMAPHORE | default(false) | bool
+  when: semaphore | default(false) | bool
 
 - name: Authenticate with OIDC token file
   ansible.builtin.include_tasks: auth_token_generic.yml
-  when: not (SEMAPHORE | default(false) | bool)
+  when: not (semaphore | default(false) | bool)
 
 - name: Fetch secret from Vault
   community.hashi_vault.vault_kv2_get:

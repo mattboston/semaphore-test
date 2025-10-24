@@ -1,5 +1,5 @@
 ---
-# SEMAPHORE variable - defaults to false if not set
-SEMAPHORE: "{{ lookup('env', 'SEMAPHORE') | d() }}"
+# semaphore variable - defaults to false if not set
+semaphore: false
 
 TEST_VAR: "test_var"
