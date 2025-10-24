@@ -1,8 +1,9 @@
 ---
 - name: Print ansible location of group_vars and host_vars
   ansible.builtin.debug:
-    msg: "group_vars: {{ group_vars }}"
-    msg: "host_vars: {{ host_vars }}"
+    msg:
+      - "group_vars: {{ group_vars }}"
+      - "host_vars: {{ host_vars }}"
 
 - name: Print test3_SEMAPHORE
   ansible.builtin.debug:
