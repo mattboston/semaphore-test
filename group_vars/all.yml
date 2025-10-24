@@ -1,5 +1,4 @@
 ---
-# semaphore variable - defaults to false if not set
-semaphore: false
-
-TEST_VAR: "test_var"
+# Variables can be overridden with -e flag
+# SEMAPHORE: false  # Uncomment to set default
+# TEST_VAR: "default_value"  # Uncomment to set default

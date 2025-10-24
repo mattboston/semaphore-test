@@ -3,6 +3,13 @@
   ansible.builtin.debug:
     msg: "TEST_VAR: {{ TEST_VAR }}"
 
+- name: Print all semaphore-related variables
+  ansible.builtin.debug:
+    msg:
+      - "SEMAPHORE: {{ SEMAPHORE | default('undefined') }}"
+      - "semaphore: {{ semaphore | default('undefined') }}"
+      - "All variables containing 'semaphore': {{ ansible_play_vars | dict2items | selectattr('key', 'match', '.*[Ss][Ee][Mm][Aa][Pp][Hh][Oo][Rr][Ee].*') | map(attribute='key') | list }}"
+
 - name: Print ansible search paths for group_vars and host_vars
   ansible.builtin.debug:
     msg:
