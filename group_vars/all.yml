@@ -1,4 +1,4 @@
 ---
-# Variables can be overridden with -e flag
-# SEMAPHORE: false  # Uncomment to set default
-# TEST_VAR: "default_value"  # Uncomment to set default
+# Use environment variables (set in Semaphore UI)
+SEMAPHORE: "{{ lookup('env', 'semaphore') | default(false) | bool }}"
+TEST_VAR: "{{ lookup('env', 'TEST_VAR') | default('default_value') }}"

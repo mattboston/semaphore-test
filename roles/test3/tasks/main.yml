@@ -8,11 +8,10 @@
     msg:
       - "SEMAPHORE: {{ SEMAPHORE | default('undefined') }}"
       - "semaphore: {{ semaphore | default('undefined') }}"
-      - "All variables containing 'semaphore': {{ ansible_play_vars | dict2items | selectattr('key', 'match', '.*[Ss][Ee][Mm][Aa][Pp][Hh][Oo][Rr][Ee].*') | map(attribute='key') | list }}"
 
 - name: Print all available variables (first 20)
   ansible.builtin.debug:
-    msg: "Available variables: {{ ansible_play_vars.keys() | list | sort | list[:20] }}"
+    msg: "Available variables: {{ (ansible_play_vars | default({})).keys() | list | sort | list[:20] }}"
 
 - name: Print ansible search paths for group_vars and host_vars
   ansible.builtin.debug:
