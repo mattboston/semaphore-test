@@ -1,3 +1,3 @@
 ---
 # SEMAPHORE variable - defaults to false if not set
-SEMAPHORE: false
+SEMAPHORE: "{{ env.SEMAPHORE | default(false) | bool }}"
