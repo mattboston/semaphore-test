@@ -19,5 +19,8 @@
 
 - name: Vault authentication and secret retrieval (AppRole)
   hosts: all
+  vars:
+    test3_eng_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-eng.json') | from_json }}"
+    test3_fin_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-fin.json') | from_json }}"
   roles:
-    - role: test3   # Fetch secrets from eng/blockchain and fin/treasury (uses vault role internally)
+    - role: test3 # Fetch secrets from eng/blockchain and fin/treasury (uses vault role internally)
