@@ -6,9 +6,9 @@
 - name: Print raw variable values
   ansible.builtin.debug:
     msg:
-      - "TEST_VAR raw: '{{ TEST_VAR }}'"
-      - "semaphore raw: '{{ semaphore }}'"
-      - "SEMAPHORE raw: '{{ SEMAPHORE }}'"
+      - "TEST_VAR raw: '{{ TEST_VAR | default('undefined') }}'"
+      - "semaphore raw: '{{ semaphore | default('undefined') }}'"
+      - "SEMAPHORE raw: '{{ SEMAPHORE | default('undefined') }}'"
 
 - name: Print all semaphore-related variables
   ansible.builtin.debug:
