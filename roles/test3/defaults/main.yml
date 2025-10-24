@@ -6,12 +6,14 @@ test3_eng_path: "test"
 test3_eng_engine_mount_point: "kv"
 test3_eng_root_namespace: "eng"
 test3_eng_namespace: "eng/blockchain"
+test3_eng_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-eng.json') | from_json if semaphore else none }}"
 
 # fin/treasury namespace configuration
 test3_fin_path: "test"
 test3_fin_engine_mount_point: "kv"
 test3_fin_root_namespace: "fin"
 test3_fin_namespace: "fin/treasury"
+test3_fin_approle_creds: "{{ lookup('file', '/etc/semaphore/vault-approle-fin.json') | from_json if semaphore else none }}"
 
 test3_eng_login: >-
   {{ lookup(
